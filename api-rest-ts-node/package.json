@@ -1,0 +1,38 @@
+{
+  "name": "api-rest-ts-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "ts-node-dev ./src/index.ts",
+    "lint": "eslint . --ext .ts,.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^29.5.12",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "http-status-codes": "^2.3.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.3",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.5.0",
+    "@types/express": "^4.17.21",
+    "@types/supertest": "^6.0.2",
+    "eslint": "^9.5.0",
+    "globals": "^15.6.0",
+    "supertest": "^7.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.13.1",
+    "yup-locales": "^1.2.25"
+  },
+  "overrides": {
+    "eslint": "^9.5.0"
+  }
+}

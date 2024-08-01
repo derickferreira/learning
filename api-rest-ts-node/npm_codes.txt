@@ -1,0 +1,12 @@
+npm i express
+npm i -D typescript @types/express
+npx eslint --init
+npm i -D http-status-codes
+npm i dotenv
+npx tsc --init
+npm i yup
+npm i -D jest ts-jest @types/jest
+npx jest -innit
+npm i -D supertest @types/supertest
+
+::to run: ts-node-dev ./src/index.ts
