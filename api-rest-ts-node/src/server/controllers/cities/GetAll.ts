@@ -27,9 +27,14 @@ export const getAll = async (
     request: Request<{}, {}, {}, IQueryProps>,
     response: Response
 ) => {
+    response.setHeader("access-control-exoise-headers", "x-total-coun");
+    response.setHeader("x-total-count", 1);
     console.log(request.query);
 
-    return response.status(StatusCodes.OK).send({
-        cities: "All Cities",
-    });
+    return response.status(StatusCodes.OK).json([
+        {
+            id: 1,
+            name: "Bedforshire",
+        },
+    ]);
 };

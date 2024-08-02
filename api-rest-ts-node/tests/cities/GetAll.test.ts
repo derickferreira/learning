@@ -7,6 +7,7 @@ describe("Cities - GetAll", () => {
             "/cities?filter=derick&limit=20&page=1"
         );
 
+        expect(res1.headers["x-total-count"]).toBeGreaterThan(0);
         expect(res1.statusCode).toEqual(StatusCodes.OK);
         expect(res1.body).toHaveProperty("cities");
     });

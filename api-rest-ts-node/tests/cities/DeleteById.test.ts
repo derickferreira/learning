@@ -10,14 +10,14 @@ describe("Cities - DeleteById", () => {
         expect(res1.statusCode).toEqual(StatusCodes.CREATED);
 
         const deletedRes = await testServer
-            .delete(`/cities/${res1.body}`)
+            .delete(`/cities/1`)
             .send();
 
         expect(deletedRes.statusCode).toEqual(StatusCodes.NO_CONTENT);
     });
 
     it("Deleting a register with a id less than 1", async () => {
-        const res2 = await testServer.delete("/cities/0");
+        const res2 = await testServer.delete("/cities/0").send();
 
         expect(res2.statusCode).toEqual(StatusCodes.BAD_REQUEST);
         expect(res2.body).toHaveProperty("errors.params.id");
