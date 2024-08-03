@@ -1,4 +1,11 @@
+# api
 api-rest-ts-node/node_modules
+api-rest-ts-node/build
+api-rest-ts-node/coverage
+api-rest-ts-node/.env
+
+
+# three
 threejs/three01/node_modules
 threejs/three01/.parcel-cache
 threejs/three01/dist
