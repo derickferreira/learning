@@ -7,7 +7,7 @@ import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { validation } from "../../shared/middleware";
 
-// interface from database
+//  interface from database/models
 import { ICity } from "../../database/models";
 
 interface IBodyProps extends Omit<ICity, "id"> {}

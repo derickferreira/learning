@@ -9,7 +9,7 @@ import * as yup from "yup";
 // middleware
 import { validation } from "../../shared/middleware";
 
-//  interface from database
+//  interface from database/models
 import { ICity } from "../../database/models";
 
 interface IParamsProps {
