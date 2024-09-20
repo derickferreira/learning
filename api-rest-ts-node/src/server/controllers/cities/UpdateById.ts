@@ -9,13 +9,14 @@ import * as yup from "yup";
 // middleware
 import { validation } from "../../shared/middleware";
 
+//  interface from database
+import { ICity } from "../../database/models";
+
 interface IParamsProps {
     id?: number;
 }
 
-interface IBodyProps {
-    name: string;
-}
+interface IBodyProps extends Omit<ICity, "id"> {}
 
 export const updateByIdValidation = validation((getSchema) => ({
     body: getSchema<IBodyProps>(
@@ -37,7 +38,5 @@ export const updateById = async (
     console.log(request.params);
     console.log(request.body);
 
-    return response
-        .status(StatusCodes.OK)
-        .send("Not Implemented");
+    return response.status(StatusCodes.OK).send("Not Implemented");
 };
