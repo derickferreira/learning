@@ -5,7 +5,11 @@ export async function up(knex: Knex) {
     return knex.schema
         .createTable(ETableNames.city, (table) => {
             table.bigIncrements("id").primary().index();
-            table.string("name", 150).index().notNullable();
+            table
+                .string("name", 150)
+                .checkLength("<=", 150)
+                .index()
+                .notNullable();
             table.comment("This table is used to store cities in the system.");
         })
         .then(() => {
@@ -18,3 +22,4 @@ export async function down(knex: Knex) {
         console.log(`# Down table ${ETableNames.city}`);
     });
 }
+
