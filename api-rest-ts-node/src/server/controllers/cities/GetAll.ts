@@ -29,7 +29,6 @@ export const getAll = async (
 ) => {
     response.setHeader("access-control-exoise-headers", "x-total-coun");
     response.setHeader("x-total-count", 1);
-    console.log(request.query);
 
     return response.status(StatusCodes.OK).json([
         {
