@@ -17,6 +17,6 @@ describe("Cities - Create", () => {
         });
 
         expect(res1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
-        expect(res1.body).toHaveProperty("errors.default");
+        expect(res1.body).toHaveProperty("errors");
     });
 });

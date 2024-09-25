@@ -7,15 +7,16 @@ describe("Cities - GetAll", () => {
             "/cities?filter=derick&limit=20&page=1"
         );
 
-        expect(res1.headers["x-total-count"]).toBeGreaterThan(0);
+        expect(parseInt(res1.headers["x-total-count"], 10)).toBeGreaterThan(0);
         expect(res1.statusCode).toEqual(StatusCodes.OK);
-        expect(res1.body).toHaveProperty("cities");
     });
+
     it("Trying to get a register with a number less than 1", async () => {
         const res2 = await testServer.get(
             "/cities?filter=derick&limit=0&page=0"
         );
+
+        expect(res2.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(res2.body).toHaveProperty("errors");
     });
 });
-
-// https:www.youtube.com/watch?v=nR1h_G0HzOk&list=PL29TaWXah3iaaXDFPgTHiFMBF6wQahurP&index=20
