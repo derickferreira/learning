@@ -7,6 +7,9 @@ import * as yup from "yup";
 // middleware
 import { validation } from "../../shared/middleware";
 
+// providers
+import { CitiesProvider } from "../../database/providers/cities";
+
 // interfaces
 interface IParamsProps {
     id?: number;
@@ -21,7 +24,7 @@ export const deleteValidation = validation((getSchema) => ({
 }));
 
 export const deleteById = (request: Request, response: Response) => {
-    console.log(request.params);
+    CitiesProvider.deleteById(+request.params.id);
 
     return response.status(StatusCodes.NO_CONTENT).send();
 };

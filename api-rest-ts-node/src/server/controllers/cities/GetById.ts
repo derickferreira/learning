@@ -7,8 +7,11 @@ import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { validation } from "../../shared/middleware";
 
+// providers
+import { CitiesProvider } from "../../database/providers/cities";
+
 interface IParamsProps {
-    id?: number;
+    id: number;
 }
 
 export const getByIdQueryValidation = validation((getSchema) => ({
@@ -23,11 +26,7 @@ export const getById = async (
     request: Request<IParamsProps>,
     response: Response
 ) => {
-    request.params;
-    return response.status(StatusCodes.OK).json({
-        cityName: "Leighton Buzzard",
-    });
-};
+    const cities = await CitiesProvider.getById(+request.params.id);
 
-// https://www.youtube.com/watch?v=Hkt_5QGnMw0&list=PL29TaWXah3iaaXDFPgTHiFMBF6wQahurP&index=17
-// 5:00
+    return response.status(StatusCodes.OK).json(cities);
+};
