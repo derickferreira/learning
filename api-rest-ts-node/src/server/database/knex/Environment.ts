@@ -36,4 +36,3 @@ export const test: Knex.Config = {
 export const production: Knex.Config = {
     ...development,
 };
-// s
