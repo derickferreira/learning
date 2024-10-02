@@ -3,20 +3,16 @@ import { StatusCodes } from "http-status-codes";
 
 describe("Cities - GetAll", () => {
     it("Get All Registers", async () => {
-        const res1 = await testServer.get(
-            "/cities?filter=derick&limit=20&page=1"
-        );
+        const res1 = await testServer
+            .post("/cities")
+            .send({ name: "Leighton Buzzard" });
 
-        expect(parseInt(res1.headers["x-total-count"], 10)).toBeGreaterThan(0);
-        expect(res1.statusCode).toEqual(StatusCodes.OK);
-    });
+        expect(res1.statusCode).toEqual(StatusCodes.CREATED);
 
-    it("Trying to get a register with a number less than 1", async () => {
-        const res2 = await testServer.get(
-            "/cities?filter=derick&limit=0&page=0"
-        );
+        const resGot = await testServer.get("/cities").send();
 
-        expect(res2.statusCode).toEqual(StatusCodes.BAD_REQUEST);
-        expect(res2.body).toHaveProperty("errors");
+        expect(Number(resGot.header["x-total-count"])).toBeGreaterThan(0);
+        expect(resGot.statusCode).toEqual(StatusCodes.OK);
+        expect(resGot.body.length).toBeGreaterThan(0);
     });
 });

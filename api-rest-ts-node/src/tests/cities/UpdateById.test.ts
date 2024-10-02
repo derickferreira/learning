@@ -4,11 +4,16 @@ import { StatusCodes } from "http-status-codes";
 describe("Cities - UpdateById", () => {
     it("Update a register by id", async () => {
         const res1 = await testServer
-            .put("/cities/1")
+            .post("/cities")
             .send({ name: "Leighton Buzard" });
 
-        expect(res1.statusCode).toEqual(StatusCodes.OK);
-        expect(typeof res1.body).toEqual("object");
+        expect(res1.statusCode).toEqual(StatusCodes.CREATED);
+
+        const updateRes = await testServer
+            .put(`/cities/${res1.body}`)
+            .send({ name: "Rio de Janeiro" });
+
+        expect(updateRes.statusCode).toEqual(StatusCodes.NO_CONTENT);
     });
 
     it("Update a register with a id less than 1", async () => {
