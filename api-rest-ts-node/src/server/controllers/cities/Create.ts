@@ -28,7 +28,6 @@ export const create = async (
     response: Response
 ) => {
     const result = await CitiesProvider.create(request.body);
-    console.log("from controller:", request.body);
 
     if (result instanceof Error) {
         return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

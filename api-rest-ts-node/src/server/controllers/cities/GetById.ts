@@ -11,7 +11,7 @@ import { validation } from "../../shared/middleware";
 import { CitiesProvider } from "../../database/providers/cities";
 
 interface IParamsProps {
-    id: number;
+    id?: number;
 }
 
 export const getByIdQueryValidation = validation((getSchema) => ({
@@ -23,10 +23,14 @@ export const getByIdQueryValidation = validation((getSchema) => ({
 }));
 
 export const getById = async (
-    request: Request<IParamsProps>,
+    request: Request,
     response: Response
 ) => {
-    const cities = await CitiesProvider.getById(+request.params.id);
+    if(!request.params.id) {
+        return response.status(StatusCodes.BAD_REQUEST).json
+    }
 
-    return response.status(StatusCodes.OK).json(cities);
+    const citie = await CitiesProvider.getById(+request.params.id);
+
+    return response.status(StatusCodes.OK).json(citie);
 };

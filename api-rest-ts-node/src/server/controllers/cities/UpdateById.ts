@@ -12,6 +12,9 @@ import { validation } from "../../shared/middleware";
 //  interface from database/models
 import { ICity } from "../../database/models";
 
+// providers
+import { CitiesProvider } from "../../database/providers/cities";
+
 interface IParamsProps {
     id?: number;
 }
@@ -35,8 +38,26 @@ export const updateById = async (
     request: Request<IParamsProps, {}, IBodyProps>,
     response: Response
 ) => {
-    console.log(request.params);
-    console.log(request.body);
+    if (!request.params.id) {
+        return response.status(StatusCodes.BAD_REQUEST).json({
+            errors: {
+                default: "The ID parameter must be provided",
+            },
+        });
+    }
 
-    return response.status(StatusCodes.OK).send("Not Implemented");
+    const result = await CitiesProvider.updateById(
+        request.params.id,
+        request.body
+    );
+
+    if (result instanceof Error) {
+        return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors: {
+                default: result.message,
+            },
+        });
+    }
+
+    return response.status(StatusCodes.NO_CONTENT).json(result);
 };
