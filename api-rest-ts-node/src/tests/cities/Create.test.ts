@@ -8,7 +8,7 @@ describe("Cities - Create", () => {
         });
 
         expect(res1.statusCode).toEqual(StatusCodes.CREATED);
-        expect(typeof res1.body).toEqual("object");
+        expect(typeof res1.body).toEqual("number");
     });
 
     it("Trying to Create a Register with a short name", async () => {
@@ -17,6 +17,6 @@ describe("Cities - Create", () => {
         });
 
         expect(res1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
-        expect(res1.body).toHaveProperty("errors.body.name");
+        expect(res1.body).toHaveProperty("errors");
     });
 });

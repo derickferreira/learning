@@ -7,6 +7,9 @@ import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { validation } from "../../shared/middleware";
 
+// providers
+import { CitiesProvider } from "../../database/providers/cities";
+
 interface IParamsProps {
     id?: number;
 }
@@ -20,14 +23,14 @@ export const getByIdQueryValidation = validation((getSchema) => ({
 }));
 
 export const getById = async (
-    request: Request<IParamsProps>,
+    request: Request,
     response: Response
 ) => {
-    request.params;
-    return response.status(StatusCodes.OK).json({
-        cityName: "Leighton Buzzard",
-    });
-};
+    if(!request.params.id) {
+        return response.status(StatusCodes.BAD_REQUEST).json
+    }
 
-// https://www.youtube.com/watch?v=Hkt_5QGnMw0&list=PL29TaWXah3iaaXDFPgTHiFMBF6wQahurP&index=17
-// 5:00
+    const citie = await CitiesProvider.getById(+request.params.id);
+
+    return response.status(StatusCodes.OK).json(citie);
+};

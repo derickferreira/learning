@@ -4,6 +4,10 @@ api-rest-ts-node/build
 api-rest-ts-node/coverage
 api-rest-ts-node/.env
 api-rest-ts-node/*.sqlite
+<<<<<<< HEAD
+=======
+
+>>>>>>> api-development
 
 # three
 threejs/three01/node_modules
