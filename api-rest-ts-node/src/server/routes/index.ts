@@ -7,7 +7,7 @@ import { CitiesController } from "./../controllers";
 const router = Router();
 
 router.get("/", (request, response) => {
-    return response.status(StatusCodes.OK).send("Hello!");
+    return response.status(StatusCodes.OK).send("I'm the main branch!");
 });
 
 router.get(
