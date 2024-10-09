@@ -3,6 +3,7 @@ import { StatusCodes } from "http-status-codes";
 
 // controllers
 import { CitiesController } from "./../controllers";
+import { PeopleController } from "./../controllers";
 
 const router = Router();
 
@@ -21,6 +22,12 @@ router.post(
     CitiesController.createValidation,
     CitiesController.create
 );
+
+router.get("/people", (req, response) => {
+    response.send("oi");
+});
+
+router.post("/people", PeopleController.create);
 
 router.get(
     "/cities/:id",
