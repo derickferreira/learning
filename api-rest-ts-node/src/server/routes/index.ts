@@ -8,7 +8,7 @@ import { PeopleController } from "./../controllers";
 const router = Router();
 
 router.get("/", (request, response) => {
-    return response.status(StatusCodes.OK).send("I'm the main branch!");
+    return response.status(StatusCodes.OK).send("Cities");
 });
 
 router.get(
@@ -22,12 +22,6 @@ router.post(
     CitiesController.createValidation,
     CitiesController.create
 );
-
-router.get("/people", (req, response) => {
-    response.send("oi");
-});
-
-router.post("/people", PeopleController.create);
 
 router.get(
     "/cities/:id",
@@ -46,6 +40,20 @@ router.delete(
     CitiesController.deleteValidation,
     CitiesController.deleteById
 );
+
+// cities
+
+router.get("/people", (req, response) => {
+    return response.status(StatusCodes.OK).send("Cities");
+});
+
+router.post(
+    "/people",
+    PeopleController.create,
+    PeopleController.createValidation
+);
+
+router.get("/people/:id", PeopleController.GetById);
 
 export { router };
 /*

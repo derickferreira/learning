@@ -5,7 +5,7 @@ export async function up(knex: Knex) {
     return knex.schema
         .createTable(ETableNames.people, (table) => {
             table.bigIncrements("id").primary().index();
-            
+
             table
                 .bigInteger("citieId")
                 .index()
