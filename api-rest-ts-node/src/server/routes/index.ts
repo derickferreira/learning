@@ -43,9 +43,11 @@ router.delete(
 
 // people
 
-router.get("/people", (req, response) => {
-    return response.status(StatusCodes.OK).send("Cities");
-});
+router.get(
+    "/people",
+    PeopleController.getAllValidation,
+    PeopleController.GetAll
+);
 
 router.post(
     "/people",
@@ -57,6 +59,12 @@ router.get(
     "/people/:id",
     PeopleController.getByIdValidation,
     PeopleController.GetById
+);
+
+router.delete(
+    "/people/:id",
+    PeopleController.deleteByIdValidation,
+    PeopleController.DeleteById
 );
 
 export { router };

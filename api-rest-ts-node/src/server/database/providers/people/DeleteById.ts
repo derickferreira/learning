@@ -4,16 +4,13 @@ import { Knex } from "../../knex";
 // Table Names
 import { ETableNames } from "../../ETableNames";
 
-// Models
-import { IPeople } from "../../models";
-
-export const DeleteById = async (id: number): Promise<Number | Error> => {
+export const DeleteById = async (id: number): Promise<void | Error> => {
     try {
         const result = await Knex(ETableNames.people)
-            .where("id","=", id)
+            .where("id", "=", id)
             .del();
 
-        if (result) return result;
+        if (result > 0) return;
 
         return new Error("The registry was not found");
     } catch (error) {
