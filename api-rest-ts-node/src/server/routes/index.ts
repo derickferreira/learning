@@ -49,11 +49,15 @@ router.get("/people", (req, response) => {
 
 router.post(
     "/people",
-    PeopleController.create,
-    PeopleController.createValidation
+    PeopleController.createValidation,
+    PeopleController.create
 );
 
-router.get("/people/:id", PeopleController.GetById);
+router.get(
+    "/people/:id",
+    PeopleController.getByIdValidation,
+    PeopleController.GetById
+);
 
 export { router };
 /*
