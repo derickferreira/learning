@@ -18,10 +18,16 @@ interface IBodyProps extends Omit<IPeople, "id"> {}
 export const createValidation = validation((getSchema) => ({
     body: getSchema<IBodyProps>(
         yup.object().shape({
-            email: yup.string().required().email(),
-            citieId: yup.number().required().positive().integer().moreThan(0),
-            forename: yup.string().required().min(3).max(50),
-            surname: yup.string().required().min(3).max(50),
+            email: yup.string().required().email().max(100).nonNullable(),
+            citieId: yup
+                .number()
+                .required()
+                .positive()
+                .integer()
+                .moreThan(0)
+                .nonNullable(),
+            forename: yup.string().required().max(30).nonNullable(),
+            surname: yup.string().required().max(30).nonNullable(),
         })
     ),
 }));
@@ -31,6 +37,7 @@ export const create = async (
     response: Response
 ) => {
     const result = await PeopleProvider.create(request.body);
+    console.log(result)
 
     if (result instanceof Error) {
         return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

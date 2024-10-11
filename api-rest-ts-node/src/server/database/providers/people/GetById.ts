@@ -7,11 +7,11 @@ import { ETableNames } from "../../ETableNames";
 // Models
 import { IPeople } from "../../models";
 
-export const GetAll = async (id: number): Promise<Number | Error> => {
+export const GetById = async (id: number): Promise<Number | Error> => {
     try {
         const result = await Knex(ETableNames.people)
             .select("*")
-            .where("id", id)
+            .where("id","=", id)
             .first();
 
         if (result) return result;

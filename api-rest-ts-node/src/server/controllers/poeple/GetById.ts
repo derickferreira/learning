@@ -5,7 +5,7 @@ import { Request, Response } from "express";
 import { IPeople } from "./../../database/models/";
 
 // interface IBodyProps extends Omit
-interface IBodyProps extends Pick<IPeople, "id"> {}
+interface IParamsProps extends Pick<IPeople, "id"> {}
 
 // yup
 import * as yup from "yup";
@@ -14,7 +14,7 @@ import { validation } from "../../shared/middleware";
 // yup settings
 
 export const getByIdValidation = validation((getSchema) => ({
-    body: getSchema<IBodyProps>(
+    params: getSchema<IParamsProps>(
         yup.object().shape({
             id: yup.number().required().positive().integer().moreThan(0),
         })
@@ -27,11 +27,8 @@ import { PeopleProvider } from "../../database/providers/people";
 // StatusCode
 import { StatusCodes } from "http-status-codes";
 
-export const GetById = async (
-    request: Request<{}, {}, IBodyProps>,
-    response: Response
-) => {
-    const result = await PeopleProvider.GetAll(request.body.id);
+export const GetById = async (request: Request, response: Response) => {
+    const result = await PeopleProvider.GetById(+request.params.id);
 
     if (result instanceof Error) {
         return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

@@ -41,7 +41,7 @@ router.delete(
     CitiesController.deleteById
 );
 
-// cities
+// people
 
 router.get("/people", (req, response) => {
     return response.status(StatusCodes.OK).send("Cities");
