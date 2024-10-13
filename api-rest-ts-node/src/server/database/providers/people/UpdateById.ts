@@ -24,6 +24,7 @@ export const UpdateById = async (
 
         return new Error("Registration error");
     } catch (error) {
+        console.log(error);
         return new Error("Registration error");
     }
 };

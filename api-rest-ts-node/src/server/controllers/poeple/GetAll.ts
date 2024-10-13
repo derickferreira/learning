@@ -50,9 +50,7 @@ export const GetAll = async (
                 default: result.message,
             },
         });
-    }
-
-    if (count instanceof Error) {
+    } else if (count instanceof Error) {
         return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {
                 default: count.message,
