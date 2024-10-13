@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 // controllers
 import { CitiesController } from "./../controllers";
 import { PeopleController } from "./../controllers";
+import { GetAll } from "../controllers/poeple/GetAll";
 
 const router = Router();
 
@@ -65,6 +66,12 @@ router.delete(
     "/people/:id",
     PeopleController.deleteByIdValidation,
     PeopleController.DeleteById
+);
+
+router.put(
+    "/people/:id",
+    PeopleController.updateByIdValidation,
+    PeopleController.UpdateById
 );
 
 export { router };

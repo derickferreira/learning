@@ -1,8 +1,6 @@
 import { Knex } from "../../knex";
 import { ETableNames } from "../../ETableNames";
 
-import { IPeople } from "../../models";
-
 export const Count = async (filter = ""): Promise<number | Error> => {
     try {
         const [{ count }] = await Knex(ETableNames.people)

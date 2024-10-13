@@ -4,8 +4,6 @@ import { Knex } from "../../knex";
 // Table Names
 import { ETableNames } from "../../ETableNames";
 
-// Models
-import { IPeople } from "../../models";
 
 export const GetById = async (id: number): Promise<Number | Error> => {
     try {
