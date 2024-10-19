@@ -74,16 +74,15 @@ router.put(
 );
 
 // users
-router.get(
-    "/users",
-    UsersController.getEmailValidation,
-    UsersController.getByEmail
-);
-
 router.post(
-    "/users",
-    UsersController.createUserValidation,
-    UsersController.create
+    "/signUp",
+    UsersController.signUpValidation,
+    UsersController.signUp
+);
+router.post(
+    "/signIn",
+    UsersController.signInValidation,
+    UsersController.signIn
 );
 
 export { router };

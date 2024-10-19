@@ -13,31 +13,42 @@ import { IUser } from "./../../database/models/User";
 import * as yup from "yup";
 import { validation } from "../../shared/middleware";
 
-interface IBodyProps extends Omit<IUser, "id"> {}
+interface IBodyProps extends Omit<IUser, "id" | "name"> {}
 
-export const createUserValidation = validation((get) => ({
+export const signInValidation = validation((get) => ({
     body: get<IBodyProps>(
         yup.object().shape({
-            name: yup.string().required().min(3).max(100),
             email: yup.string().required().email().max(100).nonNullable(),
             password: yup.string().required().min(5).max(100),
         })
     ),
 }));
 
-export const create = async (
+export const signIn = async (
     request: Request<{}, {}, IUser>,
     response: Response
 ) => {
-    const result = await usersProvider.create(request.body);
+    const { email, password } = request.body;
+
+    const result = await usersProvider.getByEmail(email);
 
     if (result instanceof Error) {
-        return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        return response.status(StatusCodes.UNAUTHORIZED).json({
             errors: {
-                default: result.message,
+                default: "Email or password is incorect",
             },
         });
     }
 
-    return response.status(StatusCodes.CREATED).json(result);
+    if (password !== result.password) {
+        return response.status(StatusCodes.UNAUTHORIZED).json({
+            errors: {
+                default: "Email or password is incorect",
+            },
+        });
+    } else {
+        return response
+            .status(StatusCodes.OK)
+            .json({ accessToken: "test.test.test" });
+    }
 };
