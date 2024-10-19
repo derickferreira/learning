@@ -10,7 +10,7 @@ export async function up(knex: Knex) {
                 .string("name", 30)
                 .checkLength("<=", 30)
                 .notNullable()
-                .checkLength(">", 3);
+                .checkLength(">=", 3);
 
             table
                 .string("email", 100)
@@ -19,7 +19,7 @@ export async function up(knex: Knex) {
                 .unique()
                 .notNullable();
 
-            table.string("password", 100).checkLength(">", 5);
+            table.string("password", 100).checkLength(">=", 5);
 
             table.comment("This table is used to store users in the system.");
         })
