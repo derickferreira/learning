@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 
-// https-status-code
+// http-status-code
 import { StatusCodes } from "http-status-codes";
 
 // yup

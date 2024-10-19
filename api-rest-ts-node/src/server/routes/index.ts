@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 // controllers
 import { CitiesController } from "./../controllers";
 import { PeopleController } from "./../controllers";
-import { GetAll } from "../controllers/poeple/GetAll";
+import { UsersController } from "./../controllers/users";
 
 const router = Router();
 
@@ -43,7 +43,6 @@ router.delete(
 );
 
 // people
-
 router.get(
     "/people",
     PeopleController.getAllValidation,
@@ -74,16 +73,17 @@ router.put(
     PeopleController.UpdateById
 );
 
+// users
+router.get(
+    "/users",
+    UsersController.getEmailValidation,
+    UsersController.getByEmail
+);
+
+router.post(
+    "/users",
+    UsersController.createUserValidation,
+    UsersController.create
+);
+
 export { router };
-/*
-router.get("/test", (request, response) => {
-    // params
-    // query
-    // cookies
-    // localhost:3333/?test=123
-    // "test" : "123"
-    const dataParam = request.query.test;
-    console.log(dataParam);
-    // console.log(request.query);
-    return response.send("hello mate!");
-}); */
