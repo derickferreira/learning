@@ -12,6 +12,7 @@ import { IUser } from "./../../database/models/User";
 // yup
 import * as yup from "yup";
 import { validation } from "../../shared/middleware";
+import { PasswordCrypto } from "../../shared/services";
 
 interface IBodyProps extends Omit<IUser, "id" | "name"> {}
 
@@ -40,7 +41,12 @@ export const signIn = async (
         });
     }
 
-    if (password !== result.password) {
+    const passwordMatch = await PasswordCrypto.verifyPassword(
+        password,
+        result.password
+    );
+
+    if (!passwordMatch) {
         return response.status(StatusCodes.UNAUTHORIZED).json({
             errors: {
                 default: "Email or password is incorect",
