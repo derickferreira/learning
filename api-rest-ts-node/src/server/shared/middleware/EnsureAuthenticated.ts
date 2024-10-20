@@ -28,5 +28,13 @@ export const ensureAuthenticated: RequestHandler = async (
         });
     }
 
+    if (token !== "test.test.test") {
+        return response.status(StatusCodes.UNAUTHORIZED).json({
+            errors: {
+                default: "You must be authenticated to access this resource",
+            },
+        });
+    }
+
     return next();
 };
