@@ -5,18 +5,24 @@ describe("Cities - GetById", () => {
     it("Get a register by id", async () => {
         const res1 = await testServer
             .post("/cities")
+            .set("Authorization", "Bearer test.test.test")
             .send({ name: "Rio de Janeiro" });
 
         expect(res1.statusCode).toEqual(StatusCodes.CREATED);
 
-        const getRes = await testServer.get(`/cities/${res1.body}`).send();
+        const getRes = await testServer
+            .get(`/cities/${res1.body}`)
+            .set("Authorization", "Bearer test.test.test")
+            .send();
 
         expect(getRes.statusCode).toEqual(StatusCodes.OK);
         expect(getRes.body).toHaveProperty("name");
     });
 
     it("Get a register with a id less than 1", async () => {
-        const res1 = await testServer.get("/cities/0");
+        const res1 = await testServer
+            .get("/cities/0")
+            .set("Authorization", "Bearer test.test.test");
 
         expect(res1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
         expect(res1.body).toHaveProperty("errors.params.id");
