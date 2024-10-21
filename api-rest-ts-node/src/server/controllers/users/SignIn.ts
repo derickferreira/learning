@@ -9,6 +9,9 @@ import { usersProvider } from "../../database/providers/users";
 // models
 import { IUser } from "./../../database/models/User";
 
+// JWT service
+import { JWTService } from "../../shared/middleware/";
+
 // yup
 import * as yup from "yup";
 import { validation } from "../../shared/middleware";
@@ -53,8 +56,16 @@ export const signIn = async (
             },
         });
     } else {
-        return response
-            .status(StatusCodes.OK)
-            .json({ accessToken: "test.test.test" });
+        const accessToken = JWTService.sign({ uid: result.id });
+
+        if (accessToken === "JWT_SECRET_NOT_FOUND") {
+            return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                errors: {
+                    default: "Error generating access token",
+                },
+            });
+        }
+
+        return response.status(StatusCodes.OK).json({ accessToken });
     }
 };
