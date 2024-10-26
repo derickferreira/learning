@@ -6,12 +6,19 @@ const startServer = () =>
         console.log(`app running in the port: ${process.env.PORT}`)
     );
 
-console.log("Imigration is started");
-
-Knex.migrate.latest().then(() => {
-    Knex.seed
-        .run()
-        .then(() => startServer())
-        .catch(console.log);
+if (process.env.IS_LOCALHOST !== "true") {
     console.log("Imigration is running and seed");
-});
+
+    Knex.migrate
+        .latest()
+        .then(() => {
+            Knex.seed
+                .run()
+                .then(() => startServer())
+                .catch(console.log);
+        })
+        .catch(console.log);
+} else {
+    startServer();
+    console.log("Server is running on localhost");
+}
