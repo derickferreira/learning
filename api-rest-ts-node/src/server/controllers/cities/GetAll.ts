@@ -36,7 +36,7 @@ export const getAll = async (
         request.query.page || 1,
         request.query.limit || 7,
         request.query.filter || "",
-        Number(request.query.id)
+        Number(request.query.id || 0)
     );
     const count = await CitiesProvider.count(request.query.filter);
 
