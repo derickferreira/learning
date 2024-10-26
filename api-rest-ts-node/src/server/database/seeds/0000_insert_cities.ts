@@ -6,7 +6,7 @@ export const seed = async (knex: Knex) => {
         "* as count"
     );
 
-    console.log(count + "visao1");
+    console.log(typeof count + "visao1");
     if (!Number.isInteger(count) || Number(count) > 0) return;
     console.log(count + "visao2");
 
