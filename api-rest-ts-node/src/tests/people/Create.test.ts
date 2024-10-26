@@ -2,10 +2,23 @@ import { testServer } from "../jest.setup";
 import { StatusCodes } from "http-status-codes";
 
 describe("People - Create", () => {
+    let accessToken: string;
+    beforeAll(async () => {
+        const email = "create-email@gmail.com";
+        await testServer
+            .post("/signUp")
+            .send({ name: "test", email, password: "123456789" });
+        const signInRes = await testServer
+            .post("/signIn")
+            .send({ email, password: "123456789" });
+
+        accessToken = await signInRes.body.accessToken;
+    });
+
     it("Create Register", async () => {
         const res1 = await testServer
             .post("/people")
-            .set("Authorization", "Bearer test.test.test")
+            .set("Authorization", `Bearer ${accessToken}`)
             .send({
                 email: "test@example.com",
                 forename: "Test",
@@ -20,7 +33,7 @@ describe("People - Create", () => {
     it("Trying to create a new person with the same email", async () => {
         const res1 = await testServer
             .post("/people")
-            .set("Authorization", "Bearer test.test.test")
+            .set("Authorization", `Bearer ${accessToken}`)
             .send({
                 email: "test@example.com",
                 forename: "Test",
@@ -30,7 +43,7 @@ describe("People - Create", () => {
 
         const res2 = await testServer
             .post("/people")
-            .set("Authorization", "Bearer test.test.test")
+            .set("Authorization", `Bearer ${accessToken}`)
             .send({
                 email: "test@example.com",
                 forename: "Test",
