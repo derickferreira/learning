@@ -6,9 +6,8 @@ export const seed = async (knex: Knex) => {
         "* as count"
     );
 
-    console.log(typeof count + "visao1");
-    if (!Number.isInteger(count) || Number(count) > 0) return;
-    console.log(count + "visao2");
+    const countAsNumber = +count;
+    if (!Number.isInteger(countAsNumber) || Number(countAsNumber) > 0) return;
 
     const citiesToInsert = citiesFromRioGrandeDoSul.map((citiyName) => ({
         name: citiyName,
